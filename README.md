@@ -1,1 +1,1 @@
-![logo](image.png)
+<img src="image.png" width="450" />
