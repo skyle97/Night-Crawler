@@ -22,7 +22,7 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
 * ## Screenshot Functions
   If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and saves a screenshot.
   
-#" To-do list
+## To-do list
 - [x] Automatic background scan
 - [ ] Frontend
 - [ ] Backend 
