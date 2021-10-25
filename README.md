@@ -38,7 +38,7 @@ Please make sure to update tests as appropriate.
 
 ## Photo Gallery
 
-<img src="images/screenshot1.png"/>
+<img src="images/screenshot1.png" width="200" />
 
 ## Contact
 
