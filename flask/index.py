@@ -1,6 +1,4 @@
-from typing import Collection
-from dns.flags import DO
-from flask import Flask, json, jsonify, request
+from flask import Flask
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from pymongo import database
@@ -25,7 +23,6 @@ def search(query):
 @app.route("/search/id/<id>", methods=['GET'])
 def get_id(id):
     return Collection.get_document_id(id)
-
 
 @app.route("/search/ip/<ip>", methods=['GET'])
 def get_ip(ip):
