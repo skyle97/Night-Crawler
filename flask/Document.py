@@ -9,12 +9,19 @@ class Document:
     def get_document(self,col):
         colect = ({
             '_id': str(ObjectId(col['_id'])),
-            'ip': col['ip'],
+            '_ip': col['ip'],
             'ports': col['ports'],
             'services': col['services'],
             'banners': col['banners'],
             'date': col['date'],
-            'geo': col['geo']
+            'country': col['country'],
+            'region_name': col['region_name'],
+            'city': col['city'],
+            'country_code': col['country_code'],
+            'zip_code': col['zip_code'],
+            'time_zone': col['time_zone'],
+            'latitude': col['latitude'],
+            'longitude': col['longitude']
         })
         return colect
 
@@ -48,6 +55,10 @@ class Document:
             elif (search_type == "banner"):
                 reg = re.compile(r"{}".format(match), re.I)
                 collections = self.db.find({"banners": {'$regex': reg}})
+
+            elif (search_type == "city"):
+                reg = re.compile(r"{}".format(match), re.I)
+                collections = self.db.find({"city": {'$regex': reg}}) 
             else:
                 return "Invalid search filter"
 

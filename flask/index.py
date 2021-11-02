@@ -29,9 +29,9 @@ def get_ip(ip):
     return Collection.get_document_ip(ip)
 
 
-@app.route("/search/total", methods=['GET'])
+@app.route("/total", methods=['GET'])
 def get_count():
-    return str(database.count())
+    return str(database.estimated_document_count())
 
 if __name__ == '__main__':
     app.run(debug=True)
