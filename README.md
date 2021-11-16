@@ -23,7 +23,7 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
   This search engine consumes an API to get the locations in JSON format.
 - ## Screenshot Functions
   If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and saves a screenshot.
-<img src="images/iot.svg" width="450" />
+<img src="images/iot.svg" width="600" />
 
 ## To-do list
 
