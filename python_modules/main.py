@@ -1,10 +1,39 @@
 from Crawler import Crawler
 from Commands import Commands
+from datetime import datetime
+from time import sleep
+from colorama import Fore
 
+def show():
+    return Fore.GREEN +'''
+
+              ,---------------------------,
+              |  /---------------------\  |
+              | |                       | |
+              | |     Computer          | |
+              | |      Services         | |
+              | |       Company         | |
+              | |                       | |
+              |  \_____________________/  |
+              |___________________________|
+            ,---\_____     []     _______/------,
+          /         /______________\           /|
+        /___________________________________ /  | ___
+        |                                   |   |    )
+        |  _ _ _                 [-------]  |   |   (
+        |  o o o                 [-------]  |  /    _)_
+        |__________________________________ |/     /  /
+    /-------------------------------------/|      ( )/
+  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    '''+ Fore.RESET
 
 def main():
+    print(show())
     start, end, threads = Commands.get_flags()
     if (start and end and threads):
+        print("START: {} END: {} THREADS: {}\n".format(start,end,threads))
         NightCrawler = Crawler(start, end, threads)
         NightCrawler.start_threads()
     else:

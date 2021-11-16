@@ -3,7 +3,8 @@ import argparse
 
 class Commands:
     def get_flags():
-        parser = argparse.ArgumentParser(description="Night Crawler")
+        parser = argparse.ArgumentParser(
+            description="Search engine for Internet-connected devices")
         parser.add_argument("-s",
                             "--start",
                             type=str,

@@ -3,6 +3,7 @@ import numpy
 from ipaddress import ip_address
 from NetworkScanner import NetworkScanner
 from Mongo import Mongo
+from colorama import Fore
 
 class Crawler:
     def __init__(self,start,end,threads):
@@ -21,10 +22,12 @@ class Crawler:
             Scanner = NetworkScanner(ip)
             Scanner.start_scanner()
             if Scanner.get_ports():
-                ip, banners, ports, services= Scanner.get_results()
+                ip, banners, ports, services, hostname = Scanner.get_results()
                 image = Scanner.get_image()
                 Base = Mongo()
-                Base.insert_document(ip,ports,services,banners,image)
+                Base.insert_document(ip,ports,services,banners,hostname,image)
+                print(Fore.GREEN + Base.show_document()+Fore.RESET)
+                
 
     def start_threads(self):
         for sub in self.ip_list:
