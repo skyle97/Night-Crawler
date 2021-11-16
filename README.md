@@ -23,11 +23,15 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
   This search engine consumes an API to get the locations in JSON format.
 - ## Screenshot Functions
   If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and saves a screenshot.
+
+## Modules Explained 
 <img src="images/iot.svg" width="800" />
 
 ## To-do list
 
 - [x] Automatic background scan
+- [ ] CMS Detection
+- [ ] Web application vulnerability scan
 - [ ] Frontend
 - [ ] Backend
 - [ ] Build image with Docker and deployment
@@ -36,10 +40,6 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
-
-## Photo Gallery
-
-<img src="images/screenshot1.png" width="450" />
 
 ## Contact
 
