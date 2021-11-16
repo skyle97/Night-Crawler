@@ -1,12 +1,9 @@
-<img src="image.png" width="450" />
+#Night Crawler 
+Project focused on designing an Internet of Things (IoT) search engine.
 
-# About
+## Features
 
-Night crawler is a project focused on designing an Internet of Things (IoT) search engine using some techniques to find devices in IPv4 blocks and then insert it into MongoDB.
-
-# Features
-
-- ## Banner Grabbing
+- ### Banner Grabbing
 
   Whenever performing the intel-reconnaissance process during penetration testing or security auditing, we need to pay attention to the current web-server’s exposed information.
 
@@ -14,27 +11,28 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
 
   FTP servers, web servers, SSH servers and other system daemons often expose critical information about not only the software name, but also about the exact versions and operating systems they’re running.
 
-- ## Port Scanning
+- ### Port Scanning
 
   Is a method of determining which ports on a network are open and could be receiving or sending data. It is also a process for sending packets to specific ports on a host and analyzing responses to identify vulnerabilities.
 
-- ## IP Geolocation
+- ### IP Geolocation
   IP Geolocation is the identification of the geographic location of a device, such as a mobile phone, gadget, laptop, server and so on, by using an IP address.
   This search engine consumes an API to get the locations in JSON format.
-- ## Screenshot Functions
-  If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and saves a screenshot.
+  
+- ### Screenshot
+  If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and take screenshot.
 
-## Modules Explained 
+### Modules Explained 
 <img src="images/iot.svg" width="800" />
 
 ## To-do list
 
 - [x] Automatic background scan
-- [ ] CMS Detection
-- [ ] Web application vulnerability scan
-- [ ] Frontend
 - [x] Backend
+- [ ] CMS Detection
+- [ ] Frontend
 - [ ] Build image with Docker and deployment
+- [ ] Web application vulnerability scan
 
 ## Contributing
 
