@@ -1,4 +1,4 @@
-# Night Crawler 🪲
+# Night Crawler
 Project focused on designing an Internet of Things (IoT) search engine.
 
 ## Features
