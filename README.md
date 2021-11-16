@@ -1,5 +1,6 @@
 # Night Crawler
 Project focused on designing an Internet of Things (IoT) search engine.
+<script id="asciicast-N4Cmbsve4Y8iXREtRW27URU1K" src="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K.js" async></script>
 
 ## Features
 
