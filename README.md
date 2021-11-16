@@ -33,7 +33,7 @@ Night crawler is a project focused on designing an Internet of Things (IoT) sear
 - [ ] CMS Detection
 - [ ] Web application vulnerability scan
 - [ ] Frontend
-- [ ] Backend
+- [x] Backend
 - [ ] Build image with Docker and deployment
 
 ## Contributing
