@@ -13,6 +13,7 @@ class Document:
             'ports': col['ports'],
             'services': col['services'],
             'banners': col['banners'],
+            'hostname': col['hostname'],
             'date': col['date'],
             'country': col['country'],
             'region_name': col['region_name'],
