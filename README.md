@@ -46,20 +46,25 @@ Each collection is stored in a database, and finally the deployment of an [API](
   "longitude" : -57.9489,
   ```
 - ### Screenshot
-  If it detects that a device has an HTTP service running, it sends a request to a server and take screenshot.
+  If it detects that a device has an HTTP service running, it sends a request to a [server](https://github.com/GoogleChrome/rendertron) and take screenshot.
 
 ### Modules Explained 
 <img src="images/iot.svg" width="800" />
 
 ## To-do list
 
-- [x] Automatic background scan
-- [x] Backend API with Flask
-- [ ] CMS Detection
+- [x] [Command-line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules)
+- [x] [Backend API with Flask](https://github.com/alechilczenko/Night-Crawler/tree/main/flask)
 - [ ] Frontend with React
 - [ ] Web application vulnerability scan
 - [ ] Build image with Docker and deployment
+- [ ] Search filter by tags
+- [ ] CMS Detection (Wordpress, Drupal, Joomla)
 
+## Requirements
+ ```
+ pip install -r requirements.txt
+ ```
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
