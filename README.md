@@ -1,10 +1,13 @@
-# Night Crawler :spider:
+## Night Crawler :spider:
 Project focused on designing an Internet of Things (IoT) search engine.
+![img](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 
 
 ## How does it work ?
 
-Night Crawler uses a command line interface to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details. 
+Night Crawler uses a command line interface to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details.
+
 Each collection is stored in a database, and finally the deployment of an API allows users to access the devices.
 
 <a href="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K" target="_blank"><img src="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K.svg" width="500"/></a>
