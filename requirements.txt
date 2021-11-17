@@ -1,0 +1,6 @@
+argparse
+ipaddress
+colorama
+pymongo
+requests
+
