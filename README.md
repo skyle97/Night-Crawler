@@ -1,5 +1,11 @@
-# Night Crawler
+# Night Crawler 🪳 
 Project focused on designing an Internet of Things (IoT) search engine.
+
+
+##How does it work ?
+
+Night Crawler uses a command line interface to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details. 
+Each collection is stored in a database, and finally the deployment of an API allows users to access the devices.
 
 <a href="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K" target="_blank"><img src="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K.svg" width="500"/></a>
 
@@ -22,7 +28,7 @@ Project focused on designing an Internet of Things (IoT) search engine.
   This search engine consumes an API to get the locations in JSON format.
   
 - ### Screenshot
-  If it detects that a device has an HTTP service running, it sends a request to a server with Rendertron and take screenshot.
+  If it detects that a device has an HTTP service running, it sends a request to a server and take screenshot.
 
 ### Modules Explained 
 <img src="images/iot.svg" width="800" />
