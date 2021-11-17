@@ -9,7 +9,7 @@ Project focused on designing an Internet of Things (IoT) search engine.
 
 ## How does it work ?
 
-Night Crawler uses a command line interface to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details.
+Night Crawler uses a [command line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules) to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details.
 
 Each collection is stored in a database, and finally the deployment of an API allows users to access the devices.
 
@@ -17,17 +17,17 @@ Each collection is stored in a database, and finally the deployment of an API al
 
 ## Features
 
-- ### Banner Grabbing
+- ### Port Scanning
+
+  Is a method of determining which ports on a network are open and could be receiving or sending data. It is also a process for sending packets to specific ports on a host and     analyzing responses to identify vulnerabilities.
+  
+ - ### Banner Grabbing
 
   Whenever performing the intel-reconnaissance process during penetration testing or security auditing, we need to pay attention to the current web-server’s exposed information.
 
-  That’s where banner grabbing comes in. Banner grabbing is the act of getting software banner information (name and version), whether it’s done manually, or by using any OSINT tools that can do it for you automatically.
+  That’s where banner grabbing comes in. Banner grabbing is the act of getting software banner information (name and version), whether it’s done manually, or by using any OSINT   tools that can do it for you automatically.
 
-  FTP servers, web servers, SSH servers and other system daemons often expose critical information about not only the software name, but also about the exact versions and operating systems they’re running.
-
-- ### Port Scanning
-
-  Is a method of determining which ports on a network are open and could be receiving or sending data. It is also a process for sending packets to specific ports on a host and analyzing responses to identify vulnerabilities.
+  FTP servers, web servers, SSH servers and other system daemons often expose critical information about not only the software name, but also about the exact versions and         operating systems they’re running.
 
 - ### IP Geolocation
   IP Geolocation is the identification of the geographic location of a device, such as a mobile phone, gadget, laptop, server and so on, by using an IP address.
