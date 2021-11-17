@@ -1,4 +1,4 @@
-## Night Crawler :spider:
+# Night Crawler :spider:
 Project focused on designing an Internet of Things (IoT) search engine.
 
 ![img](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
