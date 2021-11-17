@@ -1,8 +1,8 @@
-# Night Crawler 🪳 
+# Night Crawler :spider:
 Project focused on designing an Internet of Things (IoT) search engine.
 
 
-##How does it work ?
+## How does it work ?
 
 Night Crawler uses a command line interface to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details. 
 Each collection is stored in a database, and finally the deployment of an API allows users to access the devices.
