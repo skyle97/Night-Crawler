@@ -29,12 +29,12 @@ class NetworkScanner:
 
             except socket.timeout:
                 print(self.ip +" Socket timed out")
-
             except ConnectionResetError:
                 print(self.ip + " Connection reset")
-
             except socket.herror:
                 pass
+            except OSError:
+                print(self.ip + " No route to host")
             finally:
                 target.close()
 
