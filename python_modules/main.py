@@ -1,7 +1,5 @@
 from Crawler import Crawler
 from Commands import Commands
-from datetime import datetime
-from time import sleep
 from colorama import Fore
 
 def show():
