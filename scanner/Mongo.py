@@ -24,6 +24,7 @@ class Mongo:
             return True
 
     def insert_document(self):
+        #Add boolean flags in collections, to determine if has been performed a dictionary attack
         if self.validate("ftp"):
             self.collection["ftp_flag"] = False
 
