@@ -1,12 +1,13 @@
 from datetime import datetime
 from Geolocation import Geolocation
+
 import pymongo
 
 class Mongo:
     def create_document(self, ip, ports, services, banners, hostname, image_path):
         self.geo = Geolocation.get_data(ip)
         self.collection = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": self.geo[0], "region_name": self.geo[1], "city": self.geo[2],"country_code": self.geo[3], "zip_code": self.geo[4], "time_zone": self.geo[5], "latitude": self.geo[6], "longitude": self.geo[7], "date": self.get_time(), "screenshot": image_path}
-        self.document = "{} {} {} {} {} {}".format(ip,ports,services,self.geo[3],self.geo[1],self.geo[2])
+        self.document = "{} | {} | {} | {} | {}".format(ip,services,self.geo[3],self.geo[1],self.geo[2])
         self.services = services
     
     def database_connection(self):
@@ -37,6 +38,5 @@ class Mongo:
         devices = self.database_connection()
         devices.insert(self.collection)
             
-    def show_document(self,count):
-        self.document = "{} Thread: {}".format(self.document,count)
+    def show_document(self):
         return self.document

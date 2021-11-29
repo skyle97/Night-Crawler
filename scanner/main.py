@@ -1,6 +1,9 @@
-from Crawler import Crawler
+from ThreadScanner import ThreadScanner
 from Commands import Commands
 from colorama import Fore
+from loguru import logger
+
+
 
 def show():
     return Fore.GREEN +'''
@@ -29,15 +32,14 @@ def show():
 
 def main():
     print(show())
+    logger.info("Searching for connected devices, please wait")
     start, end, threads = Commands.get_flags()
     if (start and end and threads):
-        print("START: {} END: {} THREADS: {}\n".format(start,end,threads))
-        NightCrawler = Crawler(start, end, threads)
+        NightCrawler = ThreadScanner(start,end,threads)
         NightCrawler.start_threads()
     else:
-        print("Please use -h to see all options")
+        logger.info("Please use -h to see all options")
         exit()
-
 
 if __name__ == '__main__':
     try:

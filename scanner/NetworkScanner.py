@@ -1,6 +1,11 @@
 import socket
-from Screenshot import Screenshot
 
+from Screenshot import Screenshot
+from loguru import logger
+
+logger.add("logs/{time}.log", enqueue=True, level="DEBUG", backtrace=True, diagnose="True")
+
+#Basic exception handling
 class NetworkScanner:
     def __init__(self, ip_address):
         self.ip = ip_address
@@ -11,7 +16,7 @@ class NetworkScanner:
         self.services = []
         self.hostname = []
 
-    def start_scanner(self):
+    def start(self):
         socket.setdefaulttimeout(0.5)
 
         for port in self.port_list:
@@ -19,28 +24,24 @@ class NetworkScanner:
                 target = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 response = target.connect_ex((self.ip, port))
 
-                if (response == 0):
+                if  response == 0:
                     service = socket.getservbyport(port)
 
                     self.banners.append(self.get_banners(service, target, port))
                     self.ports.append(port)
                     self.services.append(service)
+                    #Remove all empty elements in hostnames
                     self.hostname = list(filter(None, socket.gethostbyaddr(self.ip)))
 
-            except socket.timeout:
-                print(self.ip +" Socket timed out")
-            except ConnectionResetError:
-                print(self.ip + " Connection reset")
-            except socket.herror:
-                pass
-            except OSError:
-                print(self.ip + " No route to host")
+            except (socket.timeout, socket.herror, ConnectionResetError, OSError):
+                logger.debug("{} | Socket timed out".format(self.ip))
+            except Exception as e:
+                logger.exception("Exception ocurred")
             finally:
                 target.close()
 
     def get_banners(self, service, target, port):
-        
-        if (service == "http" or service == "http-alt"):
+        if  service == "http" or service == "http-alt":
             target.send(b'GET / HTTP/1.1\n\n')
             Image = Screenshot(self.ip, port)
             self.image_path = Image.http_screenshot()
@@ -49,11 +50,9 @@ class NetworkScanner:
         return banner
 
     def get_ports(self):
+        #If variable contain ports, then it, is inserted in MongoDB
         if self.ports:
             return True
-
-    def get_image(self):
-        return self.image_path
-
+    
     def get_results(self):
-        return self.ip, self.banners, self.ports, self.services, self.hostname
+        return self.ip, self.banners, self.ports, self.services, self.hostname, self.image_path
