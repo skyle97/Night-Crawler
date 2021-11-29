@@ -13,7 +13,7 @@ Night Crawler uses a [command line interface](https://github.com/alechilczenko/N
 
 Each collection is stored in a database, and finally the deployment of an [API](https://github.com/alechilczenko/Night-Crawler/tree/main/flask) allows users to access the devices.
 
-<a href="https://asciinema.org/a/4s6bDDZDVYlKf1Xdnb3o0y3Up" target="_blank"><img src="https://asciinema.org/a/N4Cmbsve4Y8iXREtRW27URU1K.svg" width="500"/></a>
+<a href="https://asciinema.org/a/4s6bDDZDVYlKf1Xdnb3o0y3Up" target="_blank"><img src="https://asciinema.org/a/4s6bDDZDVYlKf1Xdnb3o0y3Up.svg" width="500"/></a>
 
 ## Features
 
