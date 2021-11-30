@@ -1,9 +1,18 @@
-from ThreadScanner import ThreadScanner
+#!/usr/bin/env python
+from ThreadScanner import Thread_Scanner
 from Commands import Commands
 from colorama import Fore
 from loguru import logger
 
+import sys
 
+__author__ = "Alejandro Chilczenko"
+__copyright__ = "Copyright 2021, "
+__credits__ = ["Alejandro Chilczenko"]
+__license__ = "Apache 2.0"
+__version__ = "1.0.2"
+__email__ = "alechilczenko@gmail.com"
+__status__ = "Development"
 
 def show():
     return Fore.GREEN +'''
@@ -30,19 +39,40 @@ def show():
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     '''+ Fore.RESET
 
+#Search country IP blocks in https://www.nirsoft.net/countryip{COUNTRY_CODE}.html
+def get_country_ip_blocks(file):
+    total = []
+    with open(file, 'r') as flist:
+        blocks = list(filter(None,flist.read().split('\n')))
+    for ip in blocks:
+        line = ip.split(",")
+        block = [line[0],line[1]]
+        total.append(block)
+    return total
+
+def massive_scan(path,threads,timeout,screenshot):
+    #Scan total of ip blocks in file
+    for ip in get_country_ip_blocks(path):
+        start = ip[0]
+        end = ip[1]
+        Discover = Thread_Scanner(start, end, threads,timeout,screenshot)
+        Discover.start_threads()
+
 def main():
     print(show())
-    logger.info("Searching for connected devices, please wait")
-    start, end, threads = Commands.get_flags()
-    if (start and end and threads):
-        NightCrawler = ThreadScanner(start,end,threads)
-        NightCrawler.start_threads()
+    start, end, threads, path, timeout, screenshot = Commands.get_flags()
+    #Verify argument validity
+    if  start and end:
+        Discover = Thread_Scanner(start,end,threads,timeout,screenshot)
+        Discover.start_threads()
+    elif path:
+        massive_scan(path,threads,timeout,screenshot)
     else:
         logger.info("Please use -h to see all options")
-        exit()
-
+        sys.exit(1)
 if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print("Closing program")
+        logger.info("You pressed CRTL+C")
+        sys.exit(1)
