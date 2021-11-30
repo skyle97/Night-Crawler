@@ -55,11 +55,17 @@ Each collection is stored in a database, and finally the deployment of an [API](
 
 - [x] [Command-line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules)
 - [x] [Backend API with Flask](https://github.com/alechilczenko/Night-Crawler/tree/main/flask)
+- [x] Get execution time in terminal
+- [x] Logging module implementation, for exception handling
+- [x] Massive and automatic scanning
+- [x] FTP dictionary attack
 - [ ] Frontend with React
 - [ ] Web application vulnerability scan
-- [ ] Build image with Docker and deployment
 - [ ] Search filter by tags
-- [ ] CMS Detection (Wordpress, Drupal, Joomla)
+- [ ] Web technologies detection
+- [ ] Find domain name associated with IP
+- [ ] Build image with Docker and deployment
+
 
 ## Requirements
  ```
