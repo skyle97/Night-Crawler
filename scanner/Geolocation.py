@@ -3,6 +3,7 @@ import json
 
 from requests import get
 from json.decoder import JSONDecodeError
+from loguru import logger
 
 class Geolocation:
     def get_data(ip):
@@ -16,3 +17,6 @@ class Geolocation:
             return document
         except JSONDecodeError:
             return None
+        except TypeError:
+            logger.warning("Type error in request")
+

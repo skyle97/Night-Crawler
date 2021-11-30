@@ -12,6 +12,7 @@ class Screenshot:
             with open(self.file_path, 'wb') as file:
                 for x in response:
                     file.write(x)
+                
             return self.file_path
         else:
             return None
