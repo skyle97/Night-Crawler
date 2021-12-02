@@ -65,6 +65,7 @@ Each collection is stored in a database, and finally the deployment of an [API](
 - [ ] Web technologies detection
 - [ ] Find domain name associated with IP
 - [ ] Build image with Docker and deployment
+- [ ] Honeypot detection
 
 
 ## Requirements
