@@ -55,10 +55,11 @@ Each collection is stored in a database, and finally the deployment of an [API](
 
 - [x] [Command-line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules)
 - [x] [Backend API with Flask](https://github.com/alechilczenko/Night-Crawler/tree/main/flask)
-- [x] Get execution time in terminal
+- [x] Execution time in terminal
 - [x] Logging module implementation, for exception handling
 - [x] Massive and automatic scanning
-- [x] FTP dictionary attack
+- [x] [[Dictionary attack [FTP]](https://github.com/alechilczenko/Night-Crawler/tree/main/dict)
+- [x] [Automatic download of IP ranges by country](https://github.com/alechilczenko/Night-Crawler/blob/main/ranges/ranges.py) 
 - [ ] Frontend with React
 - [ ] Web application vulnerability scan
 - [ ] Search filter by tags
