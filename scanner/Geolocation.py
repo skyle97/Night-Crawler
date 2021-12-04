@@ -7,16 +7,16 @@ from loguru import logger
 
 class Geolocation:
     def get_data(ip):
+        document = []
         try:
-            document = []
+            #logger.info("First API failed, testing with other")
             API_KEY = "681318d0-38c1-11ec-be74-a1a202fc2be4"
             response = get("https://api.freegeoip.app/json/{}?apikey={}".format(ip, API_KEY))
+
             result = response.content.decode()
             res = json.loads(result)
-            document = [res['country_name'], res['region_name'], res['city'], res['country_code'],res['zip_code'], res['time_zone'], res['latitude'], res['longitude']]
+            document = [res['country_name'], res['region_name'], res['city'],res['country_code'], res['zip_code'], res['latitude'], res['longitude']]
             return document
-        except JSONDecodeError:
+        except (JSONDecodeError, ConnectionError):
+            #Resolve this issue later
             return None
-        except TypeError:
-            logger.warning("Type error in request")
-

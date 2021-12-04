@@ -6,7 +6,7 @@ import pymongo
 class Mongo:
     def __init__(self, ip, ports, services, banners, hostname, image_path):
         self.geo = Geolocation.get_data(ip)
-        self.collection = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": self.geo[0], "region_name": self.geo[1], "city": self.geo[2],"country_code": self.geo[3], "zip_code": self.geo[4], "time_zone": self.geo[5], "latitude": self.geo[6], "longitude": self.geo[7], "date": self.get_time(), "screenshot": image_path}
+        self.collection = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": self.geo[0], "region_name": self.geo[1], "city": self.geo[2],"country_code": self.geo[3], "zip_code": self.geo[4], "latitude": self.geo[5], "longitude": self.geo[6], "date": self.get_time(), "screenshot": image_path}
         self.document = "{} | {} | {} | {} | {}".format(ip,services,self.geo[3],self.geo[1],self.geo[2])
         self.services = services
     
