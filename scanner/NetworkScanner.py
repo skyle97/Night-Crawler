@@ -1,7 +1,9 @@
 import socket
 
 from Screenshot import Screenshot
+from Mongo import Mongo
 from loguru import logger
+
 
 logger.add("logs/{time}.log", enqueue=True, level="DEBUG", backtrace=True, diagnose="True")
 
@@ -27,8 +29,8 @@ class Network_Scanner:
                 response = target.connect_ex((self.ip, port))
 
                 if  response == 0:
-                    service = socket.getservbyport(port)
 
+                    service = socket.getservbyport(port)
                     self.banners.append(self.get_banners(service, target, port))
                     self.ports.append(port)
                     self.services.append(service)
@@ -41,6 +43,14 @@ class Network_Scanner:
                 logger.exception("Exception ocurred")
             finally:
                 target.close()
+        self.save()
+
+    def save(self):
+        #If variable contain ports, then it, is inserted in MongoDB
+        if self.ports:
+            Base = Mongo(self.ip,self.ports,self.services,self.banners,self.hostname,self.image_path)
+            Base.insert_document()
+            logger.success(Base.show_document())
 
     def get_banners(self, service, target, port):
         if  service == "http" or service == "http-alt":
@@ -48,14 +58,6 @@ class Network_Scanner:
             if self.screenshot:
                 image = Screenshot(self.ip, port)
                 self.image_path = image.http_screenshot()
-
         banner = target.recv(1024).decode("utf-8", errors='ignore')
         return banner
 
-    def get_ports(self):
-        #If variable contain ports, then it, is inserted in MongoDB
-        if self.ports:
-            return True
-    
-    def get_results(self):
-        return self.ip, self.banners, self.ports, self.services, self.hostname, self.image_path
