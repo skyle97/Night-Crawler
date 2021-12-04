@@ -37,5 +37,15 @@ class Commands:
                             action="store_true",
                             help="Take screenshots from devices with HTTP")
         
+        parser.add_argument("--top-ports",
+                            action="store_true",
+                            help="Scan only 20 most common ports",
+                            dest="top")
+
+        parser.add_argument("--all-ports",
+                            action="store_true",
+                            help="Scan 1000 ports",
+                            dest="all")
+
         flags = parser.parse_args()
-        return flags.start_ip, flags.end_ip, flags.threads,flags.file, flags.timeout, flags.screenshot
+        return flags.start_ip, flags.end_ip, flags.threads,flags.file, flags.timeout, flags.screenshot, flags.top, flags.all
