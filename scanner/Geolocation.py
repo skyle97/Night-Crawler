@@ -1,17 +1,17 @@
 
 import json
 
+from api import API_KEY
+
 from requests import get
 from json.decoder import JSONDecodeError
-from loguru import logger
 
 class Geolocation:
     def get_data(ip):
         document = []
         try:
-            #logger.info("First API failed, testing with other")
-            API_KEY = "681318d0-38c1-11ec-be74-a1a202fc2be4"
-            response = get("https://api.freegeoip.app/json/{}?apikey={}".format(ip, API_KEY))
+            API = API_KEY
+            response = get("https://api.freegeoip.app/json/{}?apikey={}".format(ip, API))
 
             result = response.content.decode()
             res = json.loads(result)
