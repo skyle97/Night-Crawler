@@ -1,4 +1,5 @@
 #Local modules
+from logging import exception
 from NetworkScanner import Network_Scanner
 from Mongo import Mongo
 
@@ -25,24 +26,33 @@ class Thread_Scanner():
         return [ip_address(ip).exploded for ip in range(start_int, end_int)]
 
     def job(self,q):
-        while not q.empty():
-            ip = q.get()
-            Scanner = Network_Scanner(ip,self.timeout,self.screenshot)
-            Scanner.start()
-            q.task_done()
+        pool_sema.acquire()
+        try:
+            while not q.empty():
+                ip = q.get()
+                Scanner = Network_Scanner(ip,self.timeout,self.screenshot)
+                Scanner.start()
+                q.task_done()
+        except exception as e:
+           logger.warning("Exception in thread ocurred")
+        finally:
+            pool_sema.release()
 
     def start_threads(self):
-        #Implemeting Queue to limit number of threads
+        #Implemeting Queue, showing pending jobs 
         logger.info("Searching connected devices, please wait")
         start = datetime.now()
         q = queue.Queue()
+        #Semaphore object limit max number of threads in paralell
+        global pool_sema
+        pool_sema = threading.Semaphore(value=600)
         try:
             logger.info("Launching threads")
             for j in self.ip_list:
                 q.put(j)
                 
             logger.info("Waiting for Queue to complete, {} jobs".format(q.qsize()))
-        
+    
             for i in range(self.threads):
                 thread = threading.Thread(target=self.job, args=(q,),daemon=True)
                 thread.start()
