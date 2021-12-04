@@ -3,7 +3,9 @@ from ThreadScanner import Thread_Scanner
 from Commands import Commands
 from colorama import Fore
 from loguru import logger
-from datetime import date, datetime
+from datetime import datetime
+
+from Ports import TOP_PORTS, COMMON_PORTS
 
 import sys
 
@@ -51,24 +53,33 @@ def get_country_ip_blocks(file):
         total.append(block)
     return total
 
-def massive_scan(path,threads,timeout,screenshot):
+def massive_scan(path,threads,timeout,screenshot,top_ports,all_ports):
     #Scan total of ip blocks in file
     for ip in get_country_ip_blocks(path):
         start = ip[0]
         end = ip[1]
         Discover = Thread_Scanner(start, end, threads,timeout,screenshot)
+        set_port_scan(Discover,top_ports,all_ports)
         Discover.start_threads()
+
+def set_port_scan(Discover,top_ports,all_ports):
+    if top_ports:
+        Discover.set_ports(TOP_PORTS)
+    elif all_ports:
+        Discover.set_ports(COMMON_PORTS)
 
 def main():
     print(show())
-    start, end, threads, path, timeout, screenshot = Commands.get_flags()
+    start, end, threads, path, timeout, screenshot, top_ports, all_ports = Commands.get_flags()
     #Verify argument validity
     if  start and end:
         Discover = Thread_Scanner(start,end,threads,timeout,screenshot)
+        set_port_scan(Discover,top_ports,all_ports)
         Discover.start_threads()
+
     elif path:
         start = datetime.now()
-        massive_scan(path,threads,timeout,screenshot)
+        massive_scan(path,threads,timeout,screenshot,top_ports,all_ports)
         end = datetime.now()
         elapsed = end-start
         logger.info("Total execution time: {}".format(elapsed))

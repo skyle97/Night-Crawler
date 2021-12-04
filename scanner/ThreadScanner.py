@@ -1,12 +1,10 @@
 #Local modules
 from logging import exception
 from NetworkScanner import Network_Scanner
-from Mongo import Mongo
 
 from ipaddress import ip_address
 from loguru import logger
 from datetime import datetime
-from time import sleep
 
 import queue
 import sys
@@ -16,8 +14,11 @@ class Thread_Scanner():
     def __init__(self,start,end,threads,timeout,screenshot):
         self.timeout = timeout
         self.screenshot = screenshot
-        self.ip_list = self.get_ranges(start,end)
+        self.targets = self.get_ranges(start,end)
         self.threads = threads
+
+    def set_ports(self,ports):
+        self.ports = ports
 
     def get_ranges(self,start,end):
         #Get total of ip addresses
@@ -30,9 +31,10 @@ class Thread_Scanner():
         try:
             while not q.empty():
                 ip = q.get()
-                Scanner = Network_Scanner(ip,self.timeout,self.screenshot)
-                Scanner.start()
+                Scanner = Network_Scanner(ip)
+                Scanner.start(self.timeout,self.screenshot,self.ports)
                 q.task_done()
+
         except exception as e:
            logger.warning("Exception in thread ocurred")
         finally:
@@ -48,7 +50,7 @@ class Thread_Scanner():
         pool_sema = threading.Semaphore(value=600)
         try:
             logger.info("Launching threads")
-            for j in self.ip_list:
+            for j in self.targets:
                 q.put(j)
                 
             logger.info("Waiting for Queue to complete, {} jobs".format(q.qsize()))
