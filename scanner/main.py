@@ -3,6 +3,7 @@ from ThreadScanner import Thread_Scanner
 from Commands import Commands
 from colorama import Fore
 from loguru import logger
+from datetime import date, datetime
 
 import sys
 
@@ -66,7 +67,11 @@ def main():
         Discover = Thread_Scanner(start,end,threads,timeout,screenshot)
         Discover.start_threads()
     elif path:
+        start = datetime.now()
         massive_scan(path,threads,timeout,screenshot)
+        end = datetime.now()
+        elapsed = end-start
+        logger.info("Total execution time: {}".format(elapsed))
     else:
         logger.info("Please use -h to see all options")
         sys.exit(1)
