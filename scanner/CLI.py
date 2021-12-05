@@ -1,12 +1,10 @@
 #!/usr/bin/env python
-from ThreadScanner import Thread_Scanner
 from Commands import Commands
 from colorama import Fore
 from loguru import logger
 from datetime import datetime
-
 from Ports import TOP_PORTS, COMMON_PORTS
-
+from ThreadScanner import Thread_Scanner
 import sys
 
 __author__ = "Alejandro Chilczenko"
@@ -71,6 +69,8 @@ def set_port_scan(Discover,top_ports,all_ports):
 def main():
     print(show())
     start, end, threads, path, timeout, screenshot, top_ports, all_ports = Commands.get_flags()
+    logger.info("Connecting to database")
+    connection = database_connect()
     #Verify argument validity
     if  start and end:
         Discover = Thread_Scanner(start,end,threads,timeout,screenshot)

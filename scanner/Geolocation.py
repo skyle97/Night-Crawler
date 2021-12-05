@@ -6,6 +6,8 @@ from api import API_KEY
 from requests import get
 from json.decoder import JSONDecodeError
 
+from loguru import logger
+
 class Geolocation:
     def get_data(ip):
         document = []
@@ -19,4 +21,4 @@ class Geolocation:
             return document
         except (JSONDecodeError, ConnectionError):
             #Resolve this issue later
-            return None
+            logger.warning("Error API response")
