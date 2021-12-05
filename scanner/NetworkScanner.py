@@ -17,6 +17,9 @@ class Network_Scanner():
         self.hostname = []
         self.ports = []
 
+    def set_connection(self,connection):
+        self.connection = connection
+
     def start(self,timeout,screenshot,ports):
         socket.setdefaulttimeout(timeout)
 
@@ -46,7 +49,7 @@ class Network_Scanner():
         #If variable contain ports, then it, is inserted in MongoDB
         if self.ports:
             Base = Mongo(self.ip,self.ports,self.services,self.banners,self.hostname,self.image)
-            Base.insert_document()
+            Base.insert_document(self.connection)
             logger.success(Base.show_document())
 
     def get_banners(self, service, target, port,screenshot):

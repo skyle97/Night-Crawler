@@ -10,12 +10,15 @@ import queue
 import sys
 import threading
 
+from Connect import database_connect
+
 class Thread_Scanner():
     def __init__(self,start,end,threads,timeout,screenshot):
         self.timeout = timeout
         self.screenshot = screenshot
         self.targets = self.get_ranges(start,end)
         self.threads = threads
+        self.connection = database_connect()
 
     def set_ports(self,ports):
         self.ports = ports
@@ -32,6 +35,7 @@ class Thread_Scanner():
             while not q.empty():
                 ip = q.get()
                 Scanner = Network_Scanner(ip)
+                Scanner.set_connection(self.connection)
                 Scanner.start(self.timeout,self.screenshot,self.ports)
                 q.task_done()
 
@@ -41,13 +45,13 @@ class Thread_Scanner():
             pool_sema.release()
 
     def start_threads(self):
-        #Implemeting Queue, showing pending jobs 
+        #Implemeting Queue, showing pending jobs
         logger.info("Searching connected devices, please wait")
         start = datetime.now()
         q = queue.Queue()
         #Semaphore object limit max number of threads in paralell
         global pool_sema
-        pool_sema = threading.Semaphore(value=600)
+        pool_sema = threading.Semaphore(value=900)
         try:
             logger.info("Launching threads")
             for j in self.targets:
