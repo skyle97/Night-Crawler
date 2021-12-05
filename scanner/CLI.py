@@ -69,8 +69,6 @@ def set_port_scan(Discover,top_ports,all_ports):
 def main():
     print(show())
     start, end, threads, path, timeout, screenshot, top_ports, all_ports = Commands.get_flags()
-    logger.info("Connecting to database")
-    connection = database_connect()
     #Verify argument validity
     if  start and end:
         Discover = Thread_Scanner(start,end,threads,timeout,screenshot)
