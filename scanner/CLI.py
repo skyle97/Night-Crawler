@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from Commands import Commands
+from Commands import get_flags
 from colorama import Fore
 from loguru import logger
 from datetime import datetime
@@ -68,7 +68,7 @@ def set_port_scan(Discover,top_ports,all_ports):
 
 def main():
     print(show())
-    start, end, threads, path, timeout, screenshot, top_ports, all_ports = Commands.get_flags()
+    start, end, threads, path, timeout, screenshot, top_ports, all_ports = get_flags()
     #Verify argument validity
     if  start and end:
         Discover = Thread_Scanner(start,end,threads,timeout,screenshot)

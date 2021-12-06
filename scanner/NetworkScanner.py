@@ -1,6 +1,6 @@
 import socket
 
-from Screenshot import Screenshot
+from Screenshot import take_screenshot
 from Mongo import Mongo
 from loguru import logger
 
@@ -39,6 +39,7 @@ class Network_Scanner():
 
             except (socket.timeout, socket.herror, ConnectionResetError, OSError):
                 logger.debug("{} | Socket timed out".format(self.ip))
+
             except Exception as e:
                 logger.exception("Exception ocurred")
             finally:
@@ -52,12 +53,11 @@ class Network_Scanner():
             Base.insert_document(self.connection)
             logger.success(Base.show_document())
 
-    def get_banners(self, service, target, port,screenshot):
+    def get_banners(self, service, target,port,screenshot):
         if  service == "http" or service == "http-alt":
             target.send(b'GET / HTTP/1.1\n\n')
             if screenshot:
-               image = Screenshot(self.ip, port)
-               self.image = image.http_screenshot()
+               self.image = take_screenshot(self.ip,port)
 
         banner = target.recv(1024).decode("utf-8", errors='ignore')
         return banner

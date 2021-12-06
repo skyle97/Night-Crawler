@@ -45,7 +45,7 @@ class Thread_Scanner():
             pool_sema.release()
 
     def start_threads(self):
-        #Implemeting Queue, showing pending jobs
+        #Implemeting Queue, safe threading
         logger.info("Searching connected devices, please wait")
         start = datetime.now()
         q = queue.Queue()

@@ -1,18 +1,14 @@
 from requests import get
 
-class Screenshot:
-    def __init__(self,ip,port):
-        self.path = "./screenshots"
-        self.file = "{}:{}".format(ip,port)
-        self.file_path = self.path + "/" + self.file + ".png"
+def take_screenshot(ip,port):
+    image = "{}:{}".format(ip, port)
+    path = "./screenshots/{}.png".format(image)
+    response = get("https://render-tron.appspot.com/screenshot/" + "http://{}".format(image), stream=True)
 
-    def http_screenshot(self):
-        response = get("https://render-tron.appspot.com/screenshot/" + "http://{}".format(self.file), stream=True)
-        if (response.status_code == 200):
-            with open(self.file_path, 'wb') as file:
-                for x in response:
-                    file.write(x)
-                
-            return self.file_path
-        else:
-            return None
+    if (response.status_code == 200):
+        with open(path, 'wb') as file:
+            for x in response:
+                file.write(x)
+        return path
+    else:
+        return None
