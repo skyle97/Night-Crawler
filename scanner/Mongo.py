@@ -7,7 +7,7 @@ class Mongo:
         self.collection = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": self.geo[0], "region_name": self.geo[1], "city": self.geo[2],"country_code": self.geo[3], "zip_code": self.geo[4], "latitude": self.geo[5], "longitude": self.geo[6], "date": self.get_time(), "screenshot": image}
         self.document = "{} | {} | {} | {} | {}".format(ip,services,self.geo[3],self.geo[1],self.geo[2])
         self.ports = ports 
- 
+    
     def get_time(self):
         current = datetime.now()
         return current.strftime("%d/%m/%Y %H:%M")
@@ -27,6 +27,9 @@ class Mongo:
         if self.validate(23):
            self.collection["telnet"] = False
 
+        if self.collection["screenshot"] == None:
+           del self.collection["screenshot"]
+           
         connection.insert(self.collection)
 
     def show_document(self):
