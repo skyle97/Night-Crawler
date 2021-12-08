@@ -39,8 +39,8 @@ class Thread_Scanner():
                 Scanner.start(self.timeout,self.screenshot,self.ports)
                 q.task_done()
 
-        except exception as e:
-           logger.warning("Exception in thread ocurred")
+        #except exception as e:
+           #logger.warning("Exception in thread ocurred")
         finally:
             pool_sema.release()
 

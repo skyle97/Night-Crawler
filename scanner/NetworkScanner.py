@@ -1,7 +1,9 @@
 import socket
 
 from Screenshot import take_screenshot
+from login import anonymous_login
 from Mongo import Mongo
+
 from loguru import logger
 
 
@@ -16,6 +18,7 @@ class Network_Scanner():
         self.services = []
         self.hostname = []
         self.ports = []
+        self.default = False
 
     def set_connection(self,connection):
         self.connection = connection
@@ -36,7 +39,9 @@ class Network_Scanner():
                     self.services.append(service)
                     #Remove all empty elements in hostnames
                     self.hostname = list(filter(None, socket.gethostbyaddr(self.ip)))
-
+                    
+                    self.default = anonymous_login(service,self.ip,port)
+                    
             except (socket.timeout, socket.herror, ConnectionResetError, OSError):
                 logger.debug("{} | Socket timed out".format(self.ip))
 
@@ -49,7 +54,7 @@ class Network_Scanner():
     def save(self):
         #If variable contain ports, then it, is inserted in MongoDB
         if self.ports:
-            Base = Mongo(self.ip,self.ports,self.services,self.banners,self.hostname,self.image)
+            Base = Mongo(self.ip,self.ports,self.services,self.banners,self.hostname,self.image,self.default)
             Base.insert_document(self.connection)
             logger.success(Base.show_document())
 
