@@ -30,7 +30,7 @@ def get_flags():
                         type=int,
                         help="Socket time out",
                         dest="timeout",
-                        default=1)
+                        default=0.5)
 
     parser.add_argument("--screenshot",
                         action="store_true",

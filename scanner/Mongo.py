@@ -1,26 +1,18 @@
 from datetime import datetime
 from Geolocation import get_data
+from loguru import logger
 
-class Mongo:
-    def __init__(self, ip, ports, services, banners, hostname, image,default):
-        self.geo = get_data(ip)
-        self.col = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": self.geo[0], "region_name": self.geo[1], "city": self.geo[2],"country_code": self.geo[3], "zip_code": self.geo[4], "latitude": self.geo[5], "longitude": self.geo[6], "date": self.get_time(), "screenshot": image}
-        self.document = "{} | {} | {} | {} | {}".format(ip,services,self.geo[3],self.geo[1],self.geo[2])
-        self.default = default
+def create_document(ip, ports, services, banners, hostname, image,default,connection):
+    geo = get_data(ip)
+    col = {"ip": ip, "banners": banners, "services": services, "ports": ports, "hostname": hostname, "country": geo["country_name"], "region_name": geo["region_name"], "city": geo["city"], "country_code": geo["country_code"], "zip_code": geo["zip_code"], "latitude": geo["latitude"], "longitude": geo["longitude"], "date": datetime.now().strftime("%d/%m/%Y %H:%M"), "screenshot": image}
+    default = default
+    insert_document(col,default,connection)
+    logger.success("{} | {} | {} | {} | {}".format(ip, services,geo["country_code"], geo["country_name"], geo["city"]))
+    
+def insert_document(col,default,connection):
+    if col["screenshot"] == None:
+        del col["screenshot"]
+    if default == True:
+        col["default_login"] = True
+    connection.insert(col)
 
-    def get_time(self):
-        current = datetime.now()
-        return current.strftime("%d/%m/%Y %H:%M")
-
-    def insert_document(self,connection):
-
-        if self.col["screenshot"] == None:
-           del self.col["screenshot"]
-
-        if self.default == True:
-            self.col["default_login"] = True
-           
-        connection.insert(self.col)
-
-    def show_document(self):
-        return self.document

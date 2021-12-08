@@ -11,11 +11,9 @@ def get_data(ip):
     try:
         API = API_KEY
         response = get("https://api.freegeoip.app/json/{}?apikey={}".format(ip, API))
-
         result = response.content.decode()
-        res = json.loads(result)
-        document = [res['country_name'], res['region_name'], res['city'],res['country_code'], res['zip_code'], res['latitude'], res['longitude']]
+        document = json.loads(result)
         return document
     except (JSONDecodeError, ConnectionError):
         #Resolve this issue later
-        logger.warning("Error API response")
+        logger.error("Error API response")

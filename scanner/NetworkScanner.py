@@ -1,8 +1,8 @@
 import socket
 
 from Screenshot import take_screenshot
+from Mongo import create_document
 from login import anonymous_login
-from Mongo import Mongo
 
 from loguru import logger
 
@@ -24,11 +24,13 @@ class Network_Scanner():
         self.connection = connection
 
     def start(self,timeout,screenshot,ports):
-        socket.setdefaulttimeout(timeout)
-
         for port in ports:
+
+            target = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            target.settimeout(timeout)
+            target.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
             try:
-                target = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 response = target.connect_ex((self.ip, port))
 
                 if  response == 0:
@@ -41,22 +43,21 @@ class Network_Scanner():
                     self.hostname = list(filter(None, socket.gethostbyaddr(self.ip)))
                     
                     self.default = anonymous_login(service,self.ip,port)
-                    
-            except (socket.timeout, socket.herror, ConnectionResetError, OSError):
+
+            except (socket.timeout, ConnectionResetError):
                 logger.debug("{} | Socket timed out".format(self.ip))
 
-            except Exception as e:
-                logger.exception("Exception ocurred")
+            except OSError:
+                logger.error("Disconnected from the network")
+
+            except socket.herror:
+                logger.debug("Unable to retrieve hostname")
+
             finally:
                 target.close()
-        self.save()
-
-    def save(self):
         #If variable contain ports, then it, is inserted in MongoDB
         if self.ports:
-            Base = Mongo(self.ip,self.ports,self.services,self.banners,self.hostname,self.image,self.default)
-            Base.insert_document(self.connection)
-            logger.success(Base.show_document())
+            create_document(self.ip,self.ports,self.services,self.banners,self.hostname,self.image,self.default,self.connection)
 
     def get_banners(self, service, target,port,screenshot):
         if  service == "http" or service == "http-alt":
