@@ -16,6 +16,7 @@ class Thread_Scanner():
     def __init__(self,start,end,threads,timeout,screenshot):
         self.timeout = timeout
         self.screenshot = screenshot
+        #self.targets = self.get_ranges(start, end)
         self.targets = self.get_ranges(start,end)
         self.threads = threads
         self.connection = database_connect()
@@ -38,9 +39,6 @@ class Thread_Scanner():
                 Scanner.set_connection(self.connection)
                 Scanner.start(self.timeout,self.screenshot,self.ports)
                 q.task_done()
-
-        #except exception as e:
-           #logger.warning("Exception in thread ocurred")
         finally:
             pool_sema.release()
 

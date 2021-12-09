@@ -3,7 +3,7 @@ import socket
 from Screenshot import take_screenshot
 from Mongo import create_document
 from login import anonymous_login
-
+from vnc import test_vnc
 from loguru import logger
 
 
@@ -19,6 +19,7 @@ class Network_Scanner():
         self.hostname = []
         self.ports = []
         self.default = False
+        self.vnc = None
 
     def set_connection(self,connection):
         self.connection = connection
@@ -32,17 +33,15 @@ class Network_Scanner():
 
             try:
                 response = target.connect_ex((self.ip, port))
-
                 if  response == 0:
-
                     service = socket.getservbyport(port)
                     self.banners.append(self.get_banners(service, target, port,screenshot))
                     self.ports.append(port)
                     self.services.append(service)
                     #Remove all empty elements in hostnames
                     self.hostname = list(filter(None, socket.gethostbyaddr(self.ip)))
-                    
                     self.default = anonymous_login(service,self.ip,port)
+                    self.vnc = test_vnc(service,self.ip,port)
 
             except (socket.timeout, ConnectionResetError):
                 logger.debug("{} | Socket timed out".format(self.ip))
@@ -57,7 +56,7 @@ class Network_Scanner():
                 target.close()
         #If variable contain ports, then it, is inserted in MongoDB
         if self.ports:
-            create_document(self.ip,self.ports,self.services,self.banners,self.hostname,self.image,self.default,self.connection)
+            create_document(self.ip,self.ports,self.services,self.banners,self.hostname,self.image,self.default,self.connection,self.vnc)
 
     def get_banners(self, service, target,port,screenshot):
         if  service == "http" or service == "http-alt":
