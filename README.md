@@ -9,7 +9,8 @@ Project focused on designing an Internet of Things (IoT) search engine.
 
 ## How does it work ?
 
-Night Crawler uses a [command line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules) to scan ip address ranges with multi-threading. Using sockets, it determines which ports are open and captures more information about the target, see the features section for details.
+Night Crawler uses a [command line interface](https://github.com/alechilczenko/Night-Crawler/tree/main/python_modules) to scan IPv4 address ranges with multi-threading.
+Using sockets, it determines which ports are open and captures more information about the target, see the features section for details.
 
 Each collection is stored in a database, and finally the deployment of an [API](https://github.com/alechilczenko/Night-Crawler/tree/main/flask) allows users to access the devices.
 
