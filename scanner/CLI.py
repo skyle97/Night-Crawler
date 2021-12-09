@@ -53,7 +53,8 @@ def get_country_ip_blocks(file):
 
 def massive_scan(path,threads,timeout,screenshot,top_ports,all_ports):
     #Scan total of ip blocks in file
-    for ip in get_country_ip_blocks(path):
+    countries = get_country_ip_blocks(path)
+    for ip in countries:
         start = ip[0]
         end = ip[1]
         Discover = Thread_Scanner(start, end, threads,timeout,screenshot)
