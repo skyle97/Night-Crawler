@@ -54,6 +54,34 @@ Each collection is stored in a database, and finally the deployment of an [API](
 ### Modules Explained 
 <img src="images/iot.svg" width="800" />
 
+### CLI Usage
+```
+usage: CLI.py [-h] [-s START_IP] [-e END_IP] [-t THREADS] [-m FILE] [--timeout TIMEOUT] [--screenshot] [--top-ports] [--all-ports]
+
+Scanner for Internet-connected devices
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s START_IP, --start START_IP
+  -e END_IP, --end END_IP
+  -t THREADS, --threads THREADS
+                        Number of threads [Default: 100]
+  -m FILE, --massive-scan FILE
+                        File path with IP blocks
+  --timeout TIMEOUT     Socket timeout [Default: 0.5]
+  --screenshot          Take screenshots from hosts with HTTP
+  --top-ports           Scan only 20 most used ports
+  --all-ports           Scan 1000 most used ports
+```
+### Examples
+Scan only a single IPv4 address range:
+```shell
+python3 CLI.py --start 192.168.0.0 --end 192.168.0.255 -t 500 --top-ports
+```
+Scan from a text file with multiple IPv4 address ranges:
+```shell
+python3 CLI.py --massive-scan Argentina.csv -t 200 --all-ports --screenshot 
+```
 ## To-do list
 
 - [x] [Command-line interface](https://github.com/alechilczenko/Night-Crawler/blob/main/scanner/CLI.py)
