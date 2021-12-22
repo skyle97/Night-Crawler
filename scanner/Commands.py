@@ -3,7 +3,7 @@ import pathlib
 
 def get_flags():
     parser = argparse.ArgumentParser(
-        description="Search engine for Internet-connected devices")
+        description="Scanner for Internet-connected devices")
     parser.add_argument("-s",
                         "--start",
                         type=str,
@@ -18,6 +18,7 @@ def get_flags():
                         "--threads",
                         type=int,
                         dest="threads",
+                        help="Number of threads [Default: 100]",
                         default=100)
 
     parser.add_argument("-m",
@@ -28,22 +29,22 @@ def get_flags():
 
     parser.add_argument("--timeout",
                         type=int,
-                        help="Socket time out",
+                        help="Socket timeout [Default: 0.5]",
                         dest="timeout",
                         default=0.5)
 
     parser.add_argument("--screenshot",
                         action="store_true",
-                        help="Take screenshots from devices with HTTP")
+                        help="Take screenshots from hosts with HTTP")
         
     parser.add_argument("--top-ports",
                         action="store_true",
-                        help="Scan only 20 most common ports",
+                        help="Scan only 20 most used ports",
                         dest="top")
 
     parser.add_argument("--all-ports",
                         action="store_true",
-                        help="Scan 1000 ports",
+                        help="Scan 1000 most used ports",
                         dest="all")
 
     flags = parser.parse_args()
