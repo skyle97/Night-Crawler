@@ -49,7 +49,7 @@ Each collection is stored in a database, and finally the deployment of an [API](
   "longitude" : -57.9489,
   ```
 - ### Screenshot
-  Possibility to take screenshots from hosts with HTTP using [Rendertron](https://github.com/GoogleChrome/rendertron) and unnauthenticated VNC servers, using [VNC Snapshot]      (https://github.com/IDNT/vncsnapshot).
+  Possibility to take screenshots from hosts with HTTP using [Rendertron](https://github.com/GoogleChrome/rendertron) and unnauthenticated VNC servers, using [VNC Snapshot](https://github.com/IDNT/vncsnapshot)
 
 ### CLI Usage
 ```
