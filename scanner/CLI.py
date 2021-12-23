@@ -1,44 +1,19 @@
 #!/usr/bin/env python
+from logo import show
 from Commands import get_flags
-from colorama import Fore
 from loguru import logger
 from datetime import datetime
 from Ports import TOP_PORTS, COMMON_PORTS
-from ThreadScanner import Thread_Scanner
+from MainScanner import Scanner
 import sys
 
 __author__ = "Alejandro Chilczenko"
 __copyright__ = "Copyright 2021, "
 __credits__ = ["Alejandro Chilczenko"]
 __license__ = "Apache 2.0"
-__version__ = "1.0.2"
+__version__ = "1.0.5"
 __email__ = "alechilczenko@gmail.com"
 __status__ = "Development"
-
-def show():
-    return Fore.GREEN +'''
-
-              ,---------------------------,
-              |  /---------------------\  |
-              | |                       | |
-              | |     Computer          | |
-              | |      Services         | |
-              | |       Company         | |
-              | |                       | |
-              |  \_____________________/  |
-              |___________________________|
-            ,---\_____     []     _______/------,
-          /         /______________\           /|
-        /___________________________________ /  | ___
-        |                                   |   |    )
-        |  _ _ _                 [-------]  |   |   (
-        |  o o o                 [-------]  |  /    _)_
-        |__________________________________ |/     /  /
-    /-------------------------------------/|      ( )/
-  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    '''+ Fore.RESET
 
 #Search country IP blocks in https://www.nirsoft.net/countryip{COUNTRY_CODE}.html
 def get_country_ip_blocks(file):
@@ -57,7 +32,7 @@ def massive_scan(path,threads,timeout,screenshot,top_ports,all_ports):
     for ip in countries:
         start = ip[0]
         end = ip[1]
-        Discover = Thread_Scanner(start, end, threads,timeout,screenshot)
+        Discover = Scanner(start, end, threads,timeout,screenshot)
         set_port_scan(Discover,top_ports,all_ports)
         Discover.start_threads()
 
@@ -72,7 +47,7 @@ def main():
     start, end, threads, path, timeout, screenshot, top_ports, all_ports = get_flags()
     #Verify argument validity
     if  start and end:
-        Discover = Thread_Scanner(start,end,threads,timeout,screenshot)
+        Discover = Scanner(start,end,threads,timeout,screenshot)
         set_port_scan(Discover,top_ports,all_ports)
         Discover.start_threads()
 
