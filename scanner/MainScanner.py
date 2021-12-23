@@ -1,7 +1,5 @@
 #Local modules
 from logging import exception
-from NetworkScanner import Network_Scanner
-
 from ipaddress import ip_address
 from loguru import logger
 from datetime import datetime
@@ -10,16 +8,21 @@ import queue
 import sys
 import threading
 
-from Connect import database_connect
+from Connect import elastic
+from login import anonymous_login
+from vnc import test_vnc
+from Screenshot import take_screenshot
+from Elastic import create_document
+from PortScanner import Port_Scanner
 
-class Thread_Scanner():
+class Scanner():
     def __init__(self,start,end,threads,timeout,screenshot):
         self.timeout = timeout
         self.screenshot = screenshot
-        #self.targets = self.get_ranges(start, end)
         self.targets = self.get_ranges(start,end)
         self.threads = threads
-        self.connection = database_connect()
+        self.connection = elastic
+        self.image = None
 
     def set_ports(self,ports):
         self.ports = ports
@@ -35,9 +38,15 @@ class Thread_Scanner():
         try:
             while not q.empty():
                 ip = q.get()
-                Scanner = Network_Scanner(ip)
-                Scanner.set_connection(self.connection)
-                Scanner.start(self.timeout,self.screenshot,self.ports)
+                Scanner = Port_Scanner(ip)
+                Scanner.start(self.timeout,self.ports)
+                
+                if Scanner.contain_results():
+                    ports, banners, hostname = Scanner.get_results()
+                    default = anonymous_login(ip,ports)
+                    if self.screenshot: self.image = take_screenshot(ip,ports)
+                    vnc = test_vnc(ip,ports)
+                    create_document(ip,ports,banners,hostname,self.image,default,self.connection,vnc)
                 q.task_done()
         finally:
             pool_sema.release()
