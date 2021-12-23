@@ -26,13 +26,13 @@ def get_security_level(ip,port):
     finally:
         vnc_socket.close()
 
-def test_vnc(service,ip,port):
-    if service == "rfb":
-        if get_security_level(ip,port):
+def test_vnc(ip,ports):
+    if "rfb" in ports:
+        if get_security_level(ip,ports["rfb"]):
             CMD = "timeout 60 vncsnapshot -allowblank " + ip + ":0 " + ip + ".jpg > /dev/null 2>&1"
             os.system(CMD)
-            logger.success("Receiving screenshot from {}:{}".format(ip,port))
+            logger.success("Receiving screenshot from {}:{}".format(ip,ports["rfb"]))
             return ip + ".jpg"
         else:
-            logger.debug("Failed to take screenshot {}:{}".format(ip,port))   
+            logger.debug("Failed to take screenshot {}:{}".format(ip,ports["rfb"]))   
             return None
